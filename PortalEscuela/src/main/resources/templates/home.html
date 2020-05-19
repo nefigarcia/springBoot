@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+</head>
+<body>
+
+  <th:block th:include="/menu"></th:block>
+  <div th:each="curs:${userModel}">
+    <div class="col-3 col-lg-4 mx-auto mb5">
+    <div class="card" style="width: 45rem;">
+      <div class="card-body">
+        <h2 class="card-title text-uppercase" th:text="${curs}">
+        </h2>
+        <div sec:authorize="hasAuthority('profesor')">
+          <a th:href="@{|/listActivi?idcurso=${curs}|}" >Ir a curso</a>
+          
+        </div>
+        <div sec:authorize="hasAuthority('alumno')">
+          <a href="/cursoDetail">Ir a cu</a>
+        </div>
+        
+        
+      </div>
+    </div> 
+    </div>
+  </div>
+ <!-- <div th:text="${userModel}"></div>-->
+    
+  
+
+
+
+ </body>
+
+ </html>

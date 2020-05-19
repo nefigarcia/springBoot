@@ -1,0 +1,5 @@
+com\giftsIntercambio\repository\UsuRepository.class
+com\giftsIntercambio\GiftsIntercambioApplication.class
+com\giftsIntercambio\UsuController\UsuControllerWeb.class
+com\giftsIntercambio\model\UsuEntity.class
+com\giftsIntercambio\service\UsuService.class

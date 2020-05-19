@@ -1,0 +1,229 @@
+<group name="root">
+<group name="Performing Administrative Tasks">
+
+<group name="Database Management">
+  <snippet name="Change connection limit"><![CDATA[ALTER DATABASE database1
+  CONNECTION LIMIT 10;]]></snippet>
+  <snippet name="Create Database"><![CDATA[CREATE DATABASE database1;]]></snippet>
+  <snippet name="Rename database"><![CDATA[ALTER DATABASE database1 RENAME TO new_database_name]]></snippet>
+  <snippet name="Clear all database-specific settings"><![CDATA[ALTER DATABASE database1 RESET ALL]]></snippet>
+  
+</group>
+
+<group name="Security">
+  <snippet name="Create  User"><![CDATA[CREATE USER user1
+  PASSWORD 'qwerty';]]></snippet>
+  <snippet name="Grant"><![CDATA[GRANT ALL PRIVILEGES ON OBJECT1 TO user1;]]></snippet>
+  <snippet name="Revoke"><![CDATA[GRANT ALL PRIVILEGES ON OBJECT1 FROM user1;]]></snippet>
+</group>
+
+</group>
+
+<group name="SQL Syntax">
+<group name="DML Statements">
+  <snippet name="Delete"><![CDATA[DELETE FROM table1 WHERE column1 = VALUE]]></snippet>
+  <snippet name="Insert"><![CDATA[INSERT INTO table1(
+  column1, column2)
+  VALUES (VALUE1, VALUE2);]]></snippet>
+  <snippet name="Insert with Select Clause"><![CDATA[INSERT INTO table1(column11, column12)
+  SELECT column21, column22 FROM table2]]></snippet>
+  <snippet name="Truncate"><![CDATA[TRUNCATE TABLE table1;]]></snippet>
+  <snippet name="Update"><![CDATA[UPDATE table1
+  SET column1 = VALUE1
+  WHERE column2 = VALUE2;]]></snippet>
+</group>
+
+<group name="Functions">
+
+<group name="Aggregate Functions">
+  <snippet name="Avg"><![CDATA[AVG(DISTINCT 1)]]></snippet>
+  <snippet name="Count"><![CDATA[COUNT(*)]]></snippet>
+  <snippet name="Sum"><![CDATA[SUM(1+1)]]></snippet>
+</group>
+<group name="Cast Functions">
+  <snippet name="Cast to date"><![CDATA['2000-01-01'::date]]></snippet>
+  <snippet name="Cast to text"><![CDATA['2000-01-01'::text]]></snippet>
+</group>
+<group name="Date and Time Functions">
+  <snippet name="Add day"><![CDATA['2010-09-28'::date + '10 days'::interval]]></snippet>
+  <snippet name="Add month"><![CDATA['2010-09-28'::date + '1 month'::interval]]></snippet>
+  <snippet name="Current time"><![CDATA[now()]]></snippet>
+  <snippet name="Date diff"><![CDATA['2010-09-28'::date - '2010-08-28'::date]]></snippet>
+  <snippet name="Overlaps"><![CDATA[('2001-02-16'::date, '2001-12-21'::date) OVERLAPS ('2001-10-30'::date, '2002-10-30'::date)]]></snippet>
+  <snippet name="Extract day"><![CDATA[EXTRACT(DAY FROM '2001-02-16 20:38:40'::timestamp);]]></snippet>
+</group>
+<group name="Numeric Functions">
+  <snippet name="Abs"><![CDATA[@(-1)]]></snippet>
+  <snippet name="Cos"><![CDATA[cos(1)]]></snippet>
+  <snippet name="Log"><![CDATA[log(1, 1)]]></snippet>
+  <snippet name="Power"><![CDATA[2^3)]]></snippet>
+</group>
+<group name="String Functions">
+  <snippet name="Ascii"><![CDATA[ascii('a')]]></snippet>
+  <snippet name="Length"><![CDATA[length('xxxxx')]]></snippet>
+  <snippet name="Concat"><![CDATA['String1' || 'String2')]]></snippet>
+  <snippet name="Lower"><![CDATA[lower('XXXXX')]]></snippet>
+  <snippet name="Upper"><![CDATA[upper('xxxxx')]]></snippet>
+  <snippet name="Substring"><![CDATA[substring('xxxxx' from 1 for 2)]]></snippet>
+  <snippet name="Trim"><![CDATA[trim(both 'x' from 'xTomxx')]]></snippet>
+</group>
+
+</group>
+
+<group name="SQL Queries">
+  <snippet name="Select"><![CDATA[SELECT
+  * 
+FROM
+  public.table1;]]></snippet>
+  <snippet name="Select with Aliases"><![CDATA[SELECT
+  t1.column1, t2.column2
+FROM
+  table1 t1, table1 t2
+WHERE
+  t1.column3 = t2.column4;]]></snippet>
+  <snippet name="Full Join"><![CDATA[SELECT table1.column1, table2.column2
+ FROM table1 NATURAL JOIN table2;]]></snippet>
+  <snippet name="Group"><![CDATA[SELECT
+  column1, COUNT(column2)
+FROM
+  table1
+GROUP BY
+  column1;]]></snippet>
+  <snippet name="Join"><![CDATA[SELECT table1.column1, table2.column2
+ FROM table1 JOIN table2
+ ON table1.JOIN_column1 = table2.JOIN_column2;]]></snippet>
+  <snippet name="Left Join"><![CDATA[SELECT table1.column1, table2.column2
+ FROM table1 LEFT OUTER JOIN table2
+ ON table1.JOIN_column1 = table2.JOIN_column2;]]></snippet>
+  <snippet name="Like"><![CDATA[SELECT 
+  *
+FROM
+  table1
+WHERE
+  column1 LIKE '%a%';]]></snippet>
+  <snippet name="Right Join"><![CDATA[SELECT table1.column1, table2.column2
+ FROM table1 RIGHT OUTER JOIN table2
+ ON table1.JOIN_column1 = table2.JOIN_column2;]]></snippet>
+  <snippet name="Union"><![CDATA[SELECT
+  column1
+FROM
+  table1
+UNION
+  SELECT
+    column2
+  FROM
+    table2;]]></snippet>
+  <snippet name="Where"><![CDATA[SELECT
+  *
+FROM
+  table1
+WHERE
+  column1 > 10
+ORDER BY column1;]]></snippet>
+
+
+</group>
+
+</group>
+
+
+<group name="Stored Procedure Syntax">
+
+<group name="Control Structures">
+
+  <snippet name="Case"><![CDATA[CASE A
+  WHEN  THEN  
+  ELSE 
+END CASE;
+]]></snippet>
+  <snippet name="If-Then"><![CDATA[IF true THEN
+  
+END IF;
+]]></snippet>
+  <snippet name="If-Then-Else"><![CDATA[IF true THEN 
+
+ELSE
+
+END IF;
+]]></snippet>
+  <snippet name="If-Then-Elseif"><![CDATA[IF true THEN
+
+ELSEIF 
+
+ELSE
+
+END IF;
+]]></snippet>
+  <snippet name="Labeled Loop"><![CDATA[label1: LOOP
+
+END LOOP label1;
+]]></snippet>
+  <snippet name="Loop"><![CDATA[LOOP
+
+END LOOP;
+]]></snippet>
+  <snippet name="While"><![CDATA[WHILE true LOOP
+
+END LOOP;
+]]></snippet>
+</group>
+<group name="Cursors">
+  <snippet name="Close Cursor"><![CDATA[CLOSE cursor1;]]></snippet>
+  <snippet name="Declare Cursor"><![CDATA[DECLARE cursor1 CURSOR FOR
+  SELECT table1.column1 
+FROM
+  TEST.table1;]]></snippet>
+  <snippet name="Fetch Cursor"><![CDATA[FETCH FROM cursor1
+  INTO VARIABLE1]]></snippet>
+  <snippet name="Open Cursor"><![CDATA[OPEN cursor1;]]></snippet>
+</group>
+
+</group>
+
+<group name="Working With Schema Objects">
+<group name="Stored Procedures">
+  <snippet name="Drop Function"><![CDATA[DROP FUNCTION public.function01(p1 integer);]]></snippet>
+  <snippet name="Create Function"><![CDATA[CREATE OR REPLACE FUNCTION public.function01
+(
+  p1  integer
+)
+RETURNS text AS
+$$
+begin
+  /* Insert real code here */
+end
+$$
+LANGUAGE 'plpgsql';]]></snippet>
+</group>
+<group name="Triggers">
+  <snippet name="Create Trigger"><![CDATA[CREATE OR REPLACE FUNCTION public.table_trigger_function()
+RETURNS trigger AS
+$$
+begin
+  RETURN NEW;
+end
+$$
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER "table_trigger"
+  BEFORE INSERT
+  ON public.table1
+  FOR EACH ROW
+  EXECUTE PROCEDURE public.table_trigger_function();
+]]></snippet>
+  <snippet name="Drop Trigger"><![CDATA[DROP TRIGGER table_trigger
+  ON public.table1;]]></snippet>
+</group>
+<group name="Views">
+  <snippet name="Create View"><![CDATA[CREATE VIEW public.v_table
+AS
+SELECT 
+  country.col1, 
+  country.col2, 
+  country.col3 
+FROM table;
+]]></snippet>
+  <snippet name="Drop View"><![CDATA[DROP VIEW public.v_table;]]></snippet>
+</group>
+</group>
+</group>

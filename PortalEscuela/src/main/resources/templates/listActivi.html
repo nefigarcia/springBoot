@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   
+<body>
+        <th:block th:include="/menu"></th:block>
+        <div class="wrapper">
+            <nav id="sidebar">
+                <ul class="list-unstyled components" th:object="${listTa}">
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tareas
+                        </a>
+                        <th:block sec:authorize="hasAuthority('profesor')"><button class="btn btn-default"><a th:href="@{cursoDetail(idcurso=${listTa.id_curso})}">Crear</a></button></th:block>
+                        <ul class="collapse list-unstyled" id="homeSubmenu" >                                     
+                            <li th:each="listta:${listTa.listTar}" >
+                                <a th:text="${listta}">ta</a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Quiz</a>
+                        <ul class="collapse list-unstyled" id="dos">
+                            <li><a>q</a>></li>
+                            <li><a>q2</a>></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+           
+
+           
+            <div id="content" >
+               
+                    <table class="table">
+                        <thead>
+                           <tr>
+                               <th scope="col">Nombre</th>
+                               <th scope="col">Tarea</th>
+                               <th scope="col">Calificacion</th>
+                           </tr>
+                        </thead>
+                    </table>
+            </div>
+        </div>
+        
+
+<style>
+    #sidebar{
+        min-width: 250px;
+        max-width: 250px;
+        min-height: 100vh;
+        background: lavender;
+    }
+    .wrapper{
+        display:flex;
+        align-items:stretch;
+    }
+    a[data-toggle="collapse"]{
+        position:relative;
+    }
+    .dropdown-toggle::after{
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+    }
+    #cursovis{
+        position:absolute;
+      top: 0;
+
+    }
+    #content{
+      position: absolute;
+      bottom:30%;
+      left: 30%;
+    }
+</style>
+    </body>
+</html>

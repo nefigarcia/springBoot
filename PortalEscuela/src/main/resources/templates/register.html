@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Registration Form</title>
+<!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #ededed;">
+	<div style="background-color: #337ab7; height: 50px;"></div>
+	<div class="container-fluid" style="margin-top: 30px;">
+
+		<div class="row col-lg-4 col-lg-offset-4" style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+			<form autocomplete="off" action="#" th:action="@{/register}" th:object="${userModel}" class="form-signin" method="POST" role="form">
+				<h3 class="form-signin-heading">Registration Form</h3>
+				<div class="form-group">
+					<div class="">
+						<input type="text" th:field="*{nom}" placeholder="Name" class="form-control" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="">
+						<input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="text" th:field="*{Idsep}" placeholder="numSEP" class="form-control"/>
+					</div>
+				</div>
+		
+				<div class="form-group">
+					<div class="input-group-prepend">
+						<label class="input-group-text" >Tipo de Usuario</label>
+						<select th:field="*{IdRole}" >
+							<option th:value="0" th:text="Elige"></option>
+							<option th:value="2" th:text="Profesor"></option>
+							<option th:value="3"th:text="Alumno"></option>
+						</select>
+					</div>
+					<div class="input-group-prepend">
+						<label class="input-group-text">Escolaridad</label>
+						<select th:field="*{escolaridad}">
+							<option th:value="curso" th:text="Elige"></option>
+							<option th:value="primaria" th:text="primaria"></option>
+							<option th:value="secundaria" th:text="secundaria"></option>
+						</select>
+					</div>
+					<div class="input-group-prepend">
+						<label class="input-group-text">Grado</label>
+						<select th:field="*{grado}">
+							<option th:value="0" th:text="Elige"></option>
+							<option th:value="1" th:text="1"></option>
+							<option th:value="2" th:text="2"></option>
+							<option th:value="3" th:text="3"></option>
+							<option th:value="4" th:text="4"></option>
+							<option th:value="5" th:text="5"></option>
+							<option th:value="6" th:text="6"></option>
+
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<button type="submit" class="btn btn-primary btn-block">Register User</button>
+					</div>
+				</div>
+				<span th:utext="${successMessage}"></span>
+				<div class="alert alert-success alert-dismissible col-sm-12"
+				th:if="${(bindingResult!=null && bindingResult.getAllErrors()!=null)}">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">x</button>
+					<ul th:each="data:${bindingResult.getAllErrors()}">
+						<li th:text="${data.getObjectName() + '::' + data.getDefaultMessage()}"></li>
+					</ul>
+				
+					
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
