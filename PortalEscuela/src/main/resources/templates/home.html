@@ -3,28 +3,59 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-
+<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 </head>
 <body>
 
   <th:block th:include="/menu"></th:block>
-  <div th:each="curs:${userModel}">
-    <div class="col-3 col-lg-4 mx-auto mb5">
-    <div class="card" style="width: 45rem;">
+  <nav class="na">
+    <div class="nadiv">
+      <div class="nadiv2">
+        <ul>
+          <li><a onclick="ini()">Inicio</a></li>
+          <li><a onclick="curs()">Tus Cursos</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+ <div  id="tabcursos" style="display: none;">
+  <div  th:each="curs:${userModel.CursosUsu}">
+    <div style="display: none;">cursos</div>
+
+    <div class="col-10 col-lg-4 mx-auto mb-5">
+    <div class="card" style="width: 20rem;">
       <div class="card-body">
-        <h2 class="card-title text-uppercase" th:text="${curs}">
-        </h2>
+        <h2 class="card-title text-uppercase" th:text="${curs.id}"></h2>
+        <h2 class="card-title text-uppercase" th:text="${curs.Nom}"></h2>
+
         <div sec:authorize="hasAuthority('profesor')">
-          <a th:href="@{|/listActivi?idcurso=${curs}|}" >Ir a curso</a>
-          
+          <a th:href="@{|/listActivi?idcurso=${curs.id}|}" >Ir a curso</a>        
         </div>
         <div sec:authorize="hasAuthority('alumno')">
-          <a href="/cursoDetail">Ir a cu</a>
-        </div>
-        
-        
+          <a th:href="@{|/listActivi?idcurso=${curs.id}|}">Ir a cu</a>
+        </div>     
       </div>
     </div> 
+    </div>
+  </div>
+</div>
+  <div  id="tabinicio" style="display: block;">
+    <div sec:authorize="hasAuthority('alumno')">
+    <div th:each="men:${userModel.CursosGen}">
+    <div  class="col-10 col-lg-4 mx-auto mb-5" >
+      <div class="card" style="width: 13rem;">+++++-----------
+        <img src="" class="card-img-top">
+        <div class="card-body">
+          <h3 class="card-title text-uppercase" th:text="${men.id}"></h3>
+          <h3 class="card-title text-uppercase" th:text="${men.Nom}"></h3>
+          <p class="card-text"> proban descripcion</p>
+          <button  class="btn btn-outline-primary text-uppercase">
+          <a th:href="@{|/saveusercursos?id_curso=${men.id}|}">Agregar</a></button>
+        </div>
+      </div>
+    </div>
+     </div>
     </div>
   </div>
  <!-- <div th:text="${userModel}"></div>-->
@@ -32,7 +63,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   
 
 
+ <script type="text/javascript" src="/js/funciones.js"></script>
 
  </body>
-
  </html>

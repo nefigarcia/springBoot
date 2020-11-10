@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-   
+   <head>
+    <script src="webjars/jquery/3.2.0/jquery.min.js"></script>    
+    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+  rel="stylesheet" />
+ <script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+ <script src="webjars/jquery/3.0.0/jquery.min.js"></script>
+    
+   </head>
 <body>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $("#pru").click(function(){
+            alert("The paragraph was clicked.");
+            console.log("kdsfljsdk");
+          });
+        });
+        </script>
         <th:block th:include="/menu"></th:block>
         <div class="wrapper">
             <nav id="sidebar">
-                <ul class="list-unstyled components" th:object="${listTa}">
+                <ul class="list-unstyled components" >
                     <li class="active">
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tareas
                         </a>
                         <th:block sec:authorize="hasAuthority('profesor')"><button class="btn btn-default"><a th:href="@{cursoDetail(idcurso=${listTa.id_curso})}">Crear</a></button></th:block>
                         <ul class="collapse list-unstyled" id="homeSubmenu" >                                     
                             <li th:each="listta:${listTa.listTar}" >
-                                <a th:text="${listta}">ta</a>
+                                <a th:text="${listta.id}" ></a>
+                                <a th:text="${listta.Nombre}" th:id="${listta.id}" onclick="dista(this.id)"></a>
                             </li>
                            
                         </ul>
@@ -28,10 +44,39 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 </ul>
             </nav>
            
-
-           
+            <div >
+               <div th:each="tadiv:${listTa.listTar}">
+                   <div th:id="ta+${tadiv.id}" style="display: none;">
+                   <h2 th:text="${tadiv.Nombre}" class="nomta"></h2>
+                   <a th:text="${tadiv.Instrucciones}" class="descri"></a>
+                   <br></br>
+                   <br></br>
+                   <br></br>
+                   <br></br>
+                    <form action="#" id="formarch" th:action="@{/listActivi}"  method="POST" role="form" enctype="multipart/form-data">
+                        <input type="text" id="act_id" name="act_id"  th:value="${tadiv.id}"></input>
+                        <input type="text" id="idcurso" name="idcurso" th:value="${listTa.id_curso}">
+                        <label for="archivo">Escoge tu archivo:</label>
+                     <input type="file"  id="archivo" name="archivo"></input>
+                     <button type="submit" id="btngu" class="btn btn-primary btn-block">guardar</button>
+                    <span th:utext="${successMessage}"></span>
+                    <div class="alert alert-success alert-dismissible col-sm-12"
+                     th:if="${(bindingResult!=null && bindingResult.getAllErrors()!=null)}">
+                        <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">x</button>
+                        <ul th:each="data:${bindingResult.getAllErrors()}">
+                            <li th:text="${data.getObjectName()+'::'+data.getDefaultMessage()}"></li>
+                        </ul>
+                    </div>
+                    </form>
+                   <p id="pru" class="btn btn-default">prueba</p>
+                   </div>
+                   
+               </div> 
+            </div>
+            <div id="msg"></div>
+           <th:block sec:authorize="hasAuthority('profesor')">
             <div id="content" >
-               
                     <table class="table">
                         <thead>
                            <tr>
@@ -42,7 +87,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         </thead>
                     </table>
             </div>
+            </th:block>
         </div>
+    
         
 
 <style>
@@ -76,6 +123,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       bottom:30%;
       left: 30%;
     }
+    .descri{
+        position: relative;
+        left: 30%;
+    }
+    .nomta{
+        border-bottom: 2px solid black;
+        position:relative;
+        left: 50%;
+        right: 20%;
+    }
 </style>
-    </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/funciones.js"></script>
+ </body>
 </html>

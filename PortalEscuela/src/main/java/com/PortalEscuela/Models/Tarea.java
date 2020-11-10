@@ -15,6 +15,14 @@ public class Tarea {
  @GeneratedValue(strategy = GenerationType.AUTO)
  @Column(name = "id_tarea")
  private int id;
+
+ public Tarea(int id,String nombre, String instrucciones ){
+     this.id=id;
+     this.nombre=nombre;
+     this.instrucciones=instrucciones;
+ }
+ public Tarea(){}
+
  @Column(name = "nombre")
  private String nombre;
  @Column(name = "instrucciones")

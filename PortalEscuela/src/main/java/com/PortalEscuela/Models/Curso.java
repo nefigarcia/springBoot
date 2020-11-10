@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "cursos")
 public class Curso {
@@ -17,6 +18,13 @@ public class Curso {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name = "id_cursos")
 private int id;
+
+
+public Curso(int id, String nombre){
+    this.id=id;
+    this.nombre=nombre;
+}
+public Curso(){}
 
 @Column(name = "nombre")
 private String nombre;
@@ -108,6 +116,7 @@ public String getExamen() {
 public void setExamen(String examen) {
     this.examen = examen;
 }
+
 
 
 

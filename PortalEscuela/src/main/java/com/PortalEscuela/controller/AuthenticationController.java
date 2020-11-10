@@ -1,5 +1,6 @@
 package com.PortalEscuela.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -7,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.PortalEscuela.Enti.ListActivi;
+import com.PortalEscuela.Models.Actividades;
 import com.PortalEscuela.Models.Curso;
 import com.PortalEscuela.Models.Tarea;
 import com.PortalEscuela.Models.UserModel;
+import com.PortalEscuela.Models.UsuCurso;
 import com.PortalEscuela.Services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +23,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class AuthenticationController {
@@ -46,18 +53,13 @@ public class AuthenticationController {
         return modelAndView; 
     }
     @RequestMapping(value="/home", method= RequestMethod.GET)
-    public ModelAndView home(UserModel userModel){
-       String s =SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-       StringBuilder st=new StringBuilder(s);
-       int num=st.indexOf("Password:");
-       int numpass=st.indexOf("Username:");
-      
-       Object usuu = st.substring(numpass + 10, num - 2);
-        List<UserModel> listAll=userService.listAll(usuu);
+    public ModelAndView home(){
+       String s =SecurityContextHolder.getContext().getAuthentication().getName();
+       ListActivi curso=new ListActivi();
+        userService.listAll(s,curso);
         ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("userModel", listAll);
-//System.out.println(listAll);
-modelAndView.setViewName("home");
+        modelAndView.addObject("userModel", curso);
+        modelAndView.setViewName("home");
         return modelAndView;
     }
     @RequestMapping(value = "/register",method = RequestMethod.GET)
@@ -130,5 +132,33 @@ modelAndView.setViewName("home");
         modelAndView.addObject("listTa", listActivi);
         return modelAndView;
     }
+    @RequestMapping(value = "/listActivi",method = RequestMethod.POST)
+    public String saveListAct(@RequestParam int act_id,int idcurso,MultipartFile archivo,@Valid ListActivi listActivi, BindingResult bindingResult,ModelMap modelMap)throws IOException{
+        ModelAndView modelAndView=new ModelAndView();
+        Actividades act=new Actividades();
+        if(bindingResult.hasErrors()){
+            modelAndView.addObject("successMessage", "resiva datos");
+            modelMap.addAttribute("bindingResult",bindingResult);
+        }
+       // act.setArchivo(archivo.getBytes());
+       byte[] ar=archivo.getBytes();
+        String ema=SecurityContextHolder.getContext().getAuthentication().getName();
+        //ModelAndView modelAndView=new ModelAndView();
+        userService.saveAct(act,ema,act_id,ar); 
+        //modelAndView.addObject("act", act);
+        return "redirect:/listActivi?idcurso="+idcurso+"";
+    }
+    @RequestMapping(value = "/saveusercursos",method = RequestMethod.GET)
+    public String saveusercurso(@RequestParam(value = "id_curso")Integer id_curso){
+        String ema=SecurityContextHolder.getContext().getAuthentication().getName();
+        UsuCurso usuCurso=new UsuCurso();
+        userService.saveusercursos(usuCurso,id_curso,ema);
+        return "redirect:/home";
+    }
+   
+    @RequestMapping("/nefi")
+        public String ini(){
+            return "nefi si";
+        }
     
 }

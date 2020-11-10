@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "usu_cursos")
 public class UsuCurso {
 @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_usucursos")
     private int id;
 
